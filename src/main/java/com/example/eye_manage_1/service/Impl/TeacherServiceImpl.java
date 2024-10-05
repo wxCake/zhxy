@@ -2,24 +2,24 @@ package com.example.eye_manage_1.service.Impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.example.eye_manage_1.mapper.AdminMapper;
-import com.example.eye_manage_1.pojo.Admin;
+import com.example.eye_manage_1.mapper.TeacherMapper;
 import com.example.eye_manage_1.pojo.LoginForm;
-import com.example.eye_manage_1.service.AdminService;
+import com.example.eye_manage_1.pojo.Teacher;
+import com.example.eye_manage_1.service.TeacherService;
 import com.example.eye_manage_1.utils.MD5;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service("adminSeviceImpl")
+@Service("teacherServiceImpl")
 @Transactional
-public class AdminSeviceImpl extends ServiceImpl<AdminMapper, Admin> implements AdminService {
+public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> implements TeacherService {
     @Override
-    public Admin login(LoginForm loginForm) {
-        QueryWrapper<Admin> queryWrapper = new QueryWrapper<>();
+    public Teacher login(LoginForm loginForm) {
+        QueryWrapper<Teacher> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("name",loginForm.getUsername());
         queryWrapper.eq("password", MD5.encrypt(loginForm.getPassword()));
 
-        Admin admin= baseMapper.selectOne(queryWrapper);
-        return admin;
+        Teacher teacher= baseMapper.selectOne(queryWrapper);
+        return teacher;
     }
 }

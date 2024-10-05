@@ -7,5 +7,5 @@ public class LoginForm {
     private String username;
     private String password;
     private String verifiCode;
-    private String userType;
+    private Integer userType;
 }

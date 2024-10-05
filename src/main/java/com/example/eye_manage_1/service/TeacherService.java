@@ -1,10 +1,9 @@
 package com.example.eye_manage_1.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.example.eye_manage_1.pojo.Admin;
 import com.example.eye_manage_1.pojo.LoginForm;
+import com.example.eye_manage_1.pojo.Teacher;
 
-
-public interface AdminService extends IService<Admin> {
-    Admin login(LoginForm loginForm);
+public interface TeacherService extends IService<Teacher> {
+    Teacher login(LoginForm loginForm);
 }
