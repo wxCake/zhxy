@@ -6,4 +6,6 @@ import com.example.eye_manage_1.pojo.Student;
 
 public interface StudentService extends IService<Student> {
     Student login(LoginForm loginForm);
+
+    Student getStudentById(Long userId);
 }

@@ -1,8 +1,6 @@
 package com.example.eye_manage_1.utils;
 
-import jakarta.servlet.http.HttpServletRequest;
-
-
+import javax.servlet.http.HttpServletRequest;
 
 public class AuthContextHolder {
 

@@ -3,6 +3,7 @@ package com.example.eye_manage_1.service.Impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.eye_manage_1.mapper.StudentMapper;
+import com.example.eye_manage_1.pojo.Admin;
 import com.example.eye_manage_1.pojo.LoginForm;
 import com.example.eye_manage_1.pojo.Student;
 import com.example.eye_manage_1.service.StudentService;
@@ -20,6 +21,14 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         queryWrapper.eq("password", MD5.encrypt(loginForm.getPassword()));
 
         Student student= baseMapper.selectOne(queryWrapper);
+        return student;
+    }
+
+    @Override
+    public Student getStudentById(Long userId) {
+        QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("id",userId);
+        Student student = baseMapper.selectOne(queryWrapper);
         return student;
     }
 }

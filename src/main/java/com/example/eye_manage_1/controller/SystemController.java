@@ -10,6 +10,7 @@ import com.example.eye_manage_1.service.TeacherService;
 import com.example.eye_manage_1.utils.CreateVerifiCodeImage;
 import com.example.eye_manage_1.utils.JwtHelper;
 import com.example.eye_manage_1.utils.Result;
+import com.example.eye_manage_1.utils.ResultCodeEnum;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -89,7 +90,7 @@ public class SystemController {
                 try {
                     Student student = studentService.login(loginForm);
                     if (null != student){
-                        String token = JwtHelper.createToken(student.getId().longValue(),1);
+                        String token = JwtHelper.createToken(student.getId().longValue(),2);
                         map.put("token", token);
                     }else{
                         throw new RuntimeException("用户名或者密码有错误");
@@ -104,7 +105,7 @@ public class SystemController {
                 try {
                     Teacher teacher = teacherService.login(loginForm);
                     if (null != teacher){
-                        String token = JwtHelper.createToken(teacher.getId().longValue(),1);
+                        String token = JwtHelper.createToken(teacher.getId().longValue(),3);
                         map.put("token", token);
                     }else{
                         throw new RuntimeException("用户名或者密码有错误");
@@ -121,5 +122,35 @@ public class SystemController {
 
     }
 
+    @GetMapping("/getInfo")
+    public Result getInfoByToken(@RequestHeader("token") String token){
+        //首先判断token有没有过期
+        boolean expiration = JwtHelper.isExpiration(token);
+        if (expiration) {
+            return Result.build(null, ResultCodeEnum.TOKEN_ERROR);
+        }
+        //从token中解析出用户id和用户的类型
+        Long userId = JwtHelper.getUserId(token);
+        Integer userType = JwtHelper.getUserType(token);
+        Map<String,Object> map =new LinkedHashMap();
+        switch (userType){
+            case 1:
+                Admin admin = adminService.getAdminById(userId);
+                map.put("userType",1);
+                map.put("user",admin);
+                break;
+            case 2:
+                Student student = studentService.getStudentById(userId);
+                map.put("userType",2);
+                map.put("user",student);
+                break;
 
+            case 3:
+                Teacher teacher = teacherService.getTeacherById(userId);
+                map.put("userType",3);
+                map.put("user",teacher);
+                break;
+        }
+         return Result.ok(map);
+    }
 }
