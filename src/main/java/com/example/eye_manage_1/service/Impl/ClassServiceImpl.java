@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.util.List;
+
 @Service("classServiceImpl")
 @Transactional
 public class ClassServiceImpl extends ServiceImpl<ClassMapper, Class> implements ClassService {
@@ -29,5 +31,10 @@ public class ClassServiceImpl extends ServiceImpl<ClassMapper, Class> implements
 
        Page page1= baseMapper.selectPage(page,queryWrapper);
         return page1;
+    }
+
+    @Override
+    public List<Class> getClasses() {
+        return baseMapper.selectList(null);
     }
 }

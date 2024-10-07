@@ -23,6 +23,6 @@ public class Student {
     private String address;
     private String introducation;
     private String portraitPath;
-    private String className;
+    private String clazzName;
 
 }

@@ -23,6 +23,6 @@ public class Teacher {
     private String telephone;
     private String address;
     private String portraitPath;
-    private String className;
+    private String clazzName;
 
 }

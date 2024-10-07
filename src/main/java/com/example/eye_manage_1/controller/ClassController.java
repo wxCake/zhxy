@@ -20,6 +20,12 @@ public class ClassController {
     @Autowired
     private ClassService classService;
 
+    @GetMapping("/getClazzs")
+    public Result getClasses(){
+        List<Class> classes = classService.getClasses();
+        return Result.ok(classes);
+    }
+
     @ApiOperation("分页带条件查询班级信息")
     @GetMapping("/getClazzsByOpr/{pageNo}/{pageSize}")
     public Result getClassByOpr(
